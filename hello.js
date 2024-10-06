@@ -9,4 +9,4 @@ function hello() {
 hello(); //1 :  simple Method
 hello.call(); //2 :  Call Method
 hello.apply(); //3 :  Apply Method
-hello``; //4 : Tilt sign method
+hello``; //4 : Back Ticks method
