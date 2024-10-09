@@ -1,15 +1,29 @@
 const http = require("http");
-const {add, sub,multi,div} = require("./function");
+const {add, sub} = require("./function");
+
+const url = require("url");
+const querystring = require("querystring");
 
 http
   .createServer(function (req, res) {
-    const n1 = 20;
-    const n2 = 10;
+    const requrl = req.url;
+    const parseurl = url.parse(req.url);
 
-    res.write(add(n1, n2));
-    res.write(sub(n1, n2));
-    res.write(multi(n1, n2));
-    res.write(div(n1, n2));
+    const queryurl = querystring.parse(parseurl.query);
+
+    console.log(queryurl.n1);
+    console.log(queryurl.n2);
+    // console.log(queryurl.query);
+    // console.log(requrl);
+
+    const n1 = queryurl.n1;
+    const n2 = queryurl.n2;
+
+    if (requrl.includes("./add")) {
+      res.write(add(n1, n2));
+    } else if (requrl.includes("./sub")) {
+      res.write(sub(n1, n2));
+    }
 
     res.end();
   })
