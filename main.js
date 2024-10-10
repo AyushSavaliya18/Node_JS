@@ -1,15 +1,19 @@
 const http = require("http");
 const {add, sub} = require("./function");
-
 const url = require("url");
 const querystring = require("querystring");
 
 http
   .createServer(function (req, res) {
     const requrl = req.url;
+    // console.log(requrl);
+    
     const parseurl = url.parse(req.url);
-
+    console.log(parseurl.query);
+    
     const queryurl = querystring.parse(parseurl.query);
+    console.log(queryurl);
+    
 
     console.log(queryurl.n1);
     console.log(queryurl.n2);
@@ -19,9 +23,9 @@ http
     const n1 = queryurl.n1;
     const n2 = queryurl.n2;
 
-    if (requrl.includes("./add")) {
+    if (requrl.includes("/add")) {
       res.write(add(n1, n2));
-    } else if (requrl.includes("./sub")) {
+    } else if (requrl.includes("/sub")) {
       res.write(sub(n1, n2));
     }
 

@@ -1,7 +1,8 @@
 function add(n1, n2) {
   //   console.log("Sum is:", n1 + n2);
-  return "Sum is:" + (n1 + n2);
+  return "Sum is:" + (Number(n1) + Number(n2));
 }
+
 function sub(n1, n2) {
   //   console.log("Sub is:", n1 - n2);
   return "\nsub is:" + (n1 - n2);
