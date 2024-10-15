@@ -25,8 +25,6 @@ app.get("/emp", async function (req, res) {
   res.send(data);
 });
 
-//*******************************   update
-
 async function insert(userData) {
   await client.connect();
   const db = client.db("employee");
@@ -44,35 +42,56 @@ app.post("/insert", async function (req, res) {
   res.send(data);
 });
 
-//*******************************   update
+// //*******************************   update
 
-async function update() {
+async function update(id, data1) {
   await client.connect();
   const db = client.db("employee");
   const collection = db.collection("emp");
 
   const data = await collection.updateMany(
     {
-      _id: new ObjectId("670ce417c8d341f8e927439b"),
+      _id: new ObjectId(id),
     },
-    {$set: {name: "ujjas Barvaliya"}}
+    {$set: data1}
   );
-  console.log(data);
-  //   return data;
+  console.log(data1);
+  return data;
 }
 // update();
 
-async function del() {
+app.post("/updateData/:id", async function (req, res) {
+  const updateData = await update(req.params.id, req.body);
+  console.log(updateData);
+
+  res.send(updateData);
+});
+//   app.put("/update", async function (req, res) {
+//     const data = await update(req.body);
+//     // console.log(data);
+
+//     res.send(data);
+//   });
+// }
+
+async function del(id) {
   await client.connect();
   const db = client.db("employee");
   const collection = db.collection("emp");
 
   const data = await collection.deleteMany({
-    _id: new ObjectId("670ce417c8d341f8e927439b"),
+    _id: new ObjectId(id),
   });
   console.log(data);
   //   return data;
 }
 // del();
+
+app.post("/deleteData/:id", async (req, res) => {
+  const dataDelete = await del(req.params.id);
+  console.log(dataDelete);
+
+  res.status(200).send({message: "User Data Delete...."});
+});
 
 app.listen(8000);
