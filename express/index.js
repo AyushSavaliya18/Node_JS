@@ -66,13 +66,6 @@ app.post("/updateData/:id", async function (req, res) {
 
   res.send(updateData);
 });
-//   app.put("/update", async function (req, res) {
-//     const data = await update(req.body);
-//     // console.log(data);
-
-//     res.send(data);
-//   });
-// }
 
 async function del(id) {
   await client.connect();
