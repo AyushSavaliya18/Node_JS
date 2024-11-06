@@ -12,9 +12,11 @@ const { usercreate } = require("./Controllers/usercontroller")
 const {userget} = require("./Controllers/usercontroller")
 const {userupdate} = require("./Controllers/usercontroller")
 
+
 app.post("/insert", usercreate);
 app.get("/getdata", userget);
 app.put("/update/:id",userupdate)
+
 // app.put("/update/:id", async (req, res) => {
 //     const data = await userModel.updateOne(
 //         { _id: req.params.id },

@@ -19,17 +19,18 @@ const userget = async (req, res) => {
 }
 
 const userupdate = async (req, res) => {
-    const udata = await user.updateMany(
-                { _id: req.params.id },
-                {
-                    name: req.params.name,
-                    email: req.params.email,
-                    age: req.params.age,
-                }
-            );
-            // console.log(udata);
-            res.send(udata);
+    const data = await user.updateOne(
+        {_id: req.params.id},
+        {
+          name: req.body.name,
+          email: req.body.email,
+          age: req.body.age,
         }
+      );
+      console.log(data);
+      res.send(data);
+        }
+
 
 module.exports = {
     usercreate, userget,userupdate
