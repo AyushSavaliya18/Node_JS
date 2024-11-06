@@ -17,5 +17,6 @@ const {userdelete} = require("./Controllers/usercontroller")
 app.post("/insert", usercreate);
 app.get("/getdata", userget);
 app.put("/update/:id",userupdate)
- app.delete("/delete/:id",userdelete);
+
+app.delete("/delete/:id",userdelete);
 app.listen(3000);
