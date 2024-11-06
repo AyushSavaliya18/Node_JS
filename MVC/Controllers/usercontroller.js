@@ -32,6 +32,12 @@ const userupdate = async (req, res) => {
         }
 
 
+const userdelete = async (req, res) => {
+    const data = await user.deleteOne({ _id: req.params.id });
+    console.log(data);
+    res.send(data);
+};
+
 module.exports = {
-    usercreate, userget,userupdate
+    usercreate, userget,userupdate,userdelete
 }
