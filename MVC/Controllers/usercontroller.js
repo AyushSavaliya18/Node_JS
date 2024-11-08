@@ -13,6 +13,21 @@ const usercreate = async (req, res) => {
     console.log(data);
     res.send(data);
 }
+const userlogin = async (req,res)=>{
+    try {
+        const {email,password} =req.body
+        const login = await user.findOne({email:email})
+
+        if (password === login.password) {
+            res.status(202).send({message:"User Login Sucessfully !!!",login})
+        } else {
+            res.status(401).send(" Entered Password is Wrong")
+        }
+    } catch (error) {
+        res.send(error);
+    }
+
+}
 
 const userget = async (req, res) => {
     const data = await user.find();
@@ -42,5 +57,5 @@ const userdelete = async (req, res) => {
 };
 
 module.exports = {
-    usercreate, userget, userupdate, userdelete
+    usercreate, userget, userupdate, userdelete,userlogin
 }

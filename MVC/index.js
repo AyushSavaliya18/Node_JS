@@ -10,13 +10,18 @@ const db = require("./database/db")
 const {usercreate} = require("./Controllers/usercontroller")
 const {userget} = require("./Controllers/usercontroller")
 const {userupdate} = require("./Controllers/usercontroller")
-const {userdelete} = require("./Controllers/usercontroller")
+const {userdelete} = require("./Controllers/usercontroller") 
+const {userlogin} = require("./Controllers/usercontroller")
+
 
 //user API
 app.post("/insertuser", usercreate);
 app.get("/getuser", userget);
 app.put("/updateuser/:id",userupdate)
 app.delete("/deleteuser/:id",userdelete);
+
+//User Login
+app.post("/login",userlogin);
 
 //Category Functions
 const {createcategory} = require("./Controllers/categorycontroller")
