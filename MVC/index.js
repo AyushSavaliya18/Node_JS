@@ -7,12 +7,7 @@ app.use(express.json())
 const db = require("./database/db")
 //user functions
 
-const {usercreate} = require("./Controllers/usercontroller")
-const {userget} = require("./Controllers/usercontroller")
-const {userupdate} = require("./Controllers/usercontroller")
-const {userdelete} = require("./Controllers/usercontroller") 
-const {userlogin} = require("./Controllers/usercontroller")
-
+const {usercreate,userget,userupdate,userdelete,userlogin} = require("./Controllers/usercontroller")
 
 //user API
 app.post("/insertuser", usercreate);

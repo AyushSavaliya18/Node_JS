@@ -1,12 +1,15 @@
 const user = require("../Models/userschema");
+const bcrypt = require("bcrypt");
 
 const usercreate = async (req, res) => {
 
     const { name, email, password,mobile } = req.body
+    const bpass = await bcrypt.hash(password,12);
+    console.log(bpass);
     const userdata = {
         name: name,
         email: email,
-        password: password,
+        password: bpass,
         mobile: mobile,
     };
     const data = await user.create(userdata);
@@ -15,11 +18,21 @@ const usercreate = async (req, res) => {
 }
 const userlogin = async (req,res)=>{
     try {
-        const {email,password} =req.body
+        const {email,password} =req.body;
+        console.log("!!!!",req.body.password);
         const login = await user.findOne({email:email})
+        console.log("Data :",userlogin);
 
-        if (password === login.password) {
-            res.status(202).send({message:"User Login Sucessfully !!!",login})
+        if (!userlogin) {
+            res.status(401).res.send({
+                message:"email is not valid"
+            });
+        }
+        const userpassword = await bcrypt.compare(password,login.password);
+        console.log("User Password:",userpassword);
+        
+        if (userpassword) {
+            res.status(202).send({message :"User Login Sucessfully !!!",login})
         } else {
             res.status(401).send(" Entered Password is Wrong")
         }
