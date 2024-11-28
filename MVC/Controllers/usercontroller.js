@@ -1,10 +1,12 @@
 const user = require("../Models/userschema");
-const bcrypt = require("bcrypt");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const privatekey = "#A*y*U*s*h#2710";
 
 const usercreate = async (req, res) => {
 
-    const { name, email, password,mobile } = req.body
-    const bpass = await bcrypt.hash(password,12);
+    const { name, email, password, mobile } = req.body
+    const bpass = await bcrypt.hash(password, 12);
     console.log(bpass);
     const userdata = {
         name: name,
@@ -16,23 +18,26 @@ const usercreate = async (req, res) => {
     console.log(data);
     res.send(data);
 }
-const userlogin = async (req,res)=>{
+const userlogin = async (req, res) => {
     try {
-        const {email,password} =req.body;
-        console.log("!!!!",req.body.password);
-        const login = await user.findOne({email:email})
-        console.log("Data :",userlogin);
+        const { email, password } = req.body;
+        console.log("!!!!", req.body.password);
+        const login = await user.findOne({ email: email })
+        console.log("Data :",login);
 
-        if (!userlogin) {
+        if (!login) {
             res.status(401).res.send({
-                message:"email is not valid"
+                message: "email is not valid"
             });
         }
-        const userpassword = await bcrypt.compare(password,login.password);
-        console.log("User Password:",userpassword);
-        
+        const userpassword = await bcrypt.compare(password, login.password);
+        console.log("User Password:", userpassword);
+
         if (userpassword) {
-            res.status(202).send({message :"User Login Sucessfully !!!",login})
+            const token = jwt.sign({ email: login.email ,password: login.password}, privatekey, { expiresIn: '1h' });
+
+            res.status(202).send({ message: "User Login Sucessfully !!!", login, token :token})
+
         } else {
             res.status(401).send(" Entered Password is Wrong")
         }
@@ -70,5 +75,5 @@ const userdelete = async (req, res) => {
 };
 
 module.exports = {
-    usercreate, userget, userupdate, userdelete,userlogin
+    usercreate, userget, userupdate, userdelete, userlogin
 }
