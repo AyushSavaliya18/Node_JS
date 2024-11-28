@@ -16,7 +16,7 @@ const usercreate = async (req, res) => {
     };
     const data = await user.create(userdata);
     console.log(data);
-    res.send(data);
+    res.status(201).send(data);
 }
 const userlogin = async (req, res) => {
     try {
@@ -42,7 +42,7 @@ const userlogin = async (req, res) => {
             res.status(401).send(" Entered Password is Wrong")
         }
     } catch (error) {
-        res.send(error);
+        res.status(401).send(error);
     }
 
 }
@@ -50,7 +50,7 @@ const userlogin = async (req, res) => {
 const userget = async (req, res) => {
     const data = await user.find();
     console.log(data);
-    res.send(data);
+    res.status(202).send(data);
 }
 
 const userupdate = async (req, res) => {
@@ -59,19 +59,18 @@ const userupdate = async (req, res) => {
         {
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
             mobile: req.body.mobile
         }
-    );
+    ); 
     console.log(data);
-    res.send(data);
+    res.status(202).send(data);
 }
 
 
 const userdelete = async (req, res) => {
     const data = await user.deleteOne({ _id: req.params.id });
     console.log(data);
-    res.send(data);
+    res.status(202).send(data);
 };
 
 module.exports = {
