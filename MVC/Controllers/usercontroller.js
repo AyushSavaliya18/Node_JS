@@ -10,14 +10,14 @@ const usercreate = async (req, res) => {
     const { name, email, password, mobile } = req.body
     //validation for name
     if (!/^[a-zA-Z]+$/.test(name)) {
-        return res.status(401).send({ message: "Name must contain only letters !!!"}); 
-        
+        return res.status(401).send({ message: "Name must contain only letters !!!" });
+
     }
 
     //validaiton for email
     if (!/^\S+@\S+\.\S+$/.test(email)) {
         return res.status(401).send({ message: "Invalid Email !!!" });
-        
+
     }
 
     const bpass = await bcrypt.hash(password, 12);
@@ -38,7 +38,7 @@ const userlogin = async (req, res) => {
         const { email, password } = req.body;
         console.log("!!!!", req.body.password);
         const login = await user.findOne({ email: email })
-        console.log("Data :",login);
+        console.log("Data :", login);
 
         if (!login) {
             res.status(401).res.send({
@@ -49,9 +49,9 @@ const userlogin = async (req, res) => {
         console.log("User Password:", userpassword);
 
         if (userpassword) {
-            const token = jwt.sign({ email: login.email ,password: login.password}, privatekey, { expiresIn: '1h' });
+            const token = jwt.sign({ email: login.email, password: login.password }, privatekey, { expiresIn: '1h' });
 
-            res.status(202).send({ message: "User Login Sucessfully !!!", login, token :token})
+            res.status(202).send({ message: "User Login Sucessfully !!!", login, token: token })
 
         } else {
             res.status(401).send(" Entered Password is Wrong")
@@ -62,36 +62,38 @@ const userlogin = async (req, res) => {
 }
 
 
-const sendEmail = async (req,res) =>{
+const sendEmail = async (req, res) => {
+    const otp = Math.floor(100000 + Math.random() * 900000);
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'ayushsavaliya1111@gmail.com',
-          pass: 'spys lxhw oisz cipr'
+            user: 'ayushsavaliya1111@gmail.com',
+            pass: 'spys lxhw oisz cipr'
         }
-      });
-      
-      const mailOptions = {
+    });
+
+    const mailOptions = {
         from: 'ayushsavaliya1111@gmail.com',
-        to: 'ujasbaravaliya4411@gmail.com',
-        subject: 'Sending Email using Node.js',
-        text: 'testing'
-      };
-      
-      transporter.sendMail(mailOptions, function(error, info){
+        to: 'ayushsavaliya18@gmail.com',
+        subject: 'Two-Factor Authentications',
+        text:`Your code of Two-Factor Authentications is :${otp}`
+    };
+
+    console.log(mailOptions);
+    transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          console.log(error);
+            console.log(error);
         } else {
-          console.log('Email sent: ' + info.response);
+            console.log('Email sent: ' + info.response);
         }
-      });
+    });
 }
 
 const userget = async (req, res) => {
     const data = await user.find();
     console.log(data);
     res.status(202).send(data);
-} 
+}
 
 const userupdate = async (req, res) => {
     const data = await user.updateOne(
@@ -101,7 +103,7 @@ const userupdate = async (req, res) => {
             email: req.body.email,
             mobile: req.body.mobile
         }
-    ); 
+    );
     console.log(data);
     res.status(202).send(data);
 }
