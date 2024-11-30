@@ -2,6 +2,8 @@ const user = require("../Models/userschema");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const privatekey = "#A*y*U*s*h#2710";
+const nodemailer = require('nodemailer')
+// const mail = require("nodemailer ");
 
 const usercreate = async (req, res) => {
 
@@ -57,14 +59,39 @@ const userlogin = async (req, res) => {
     } catch (error) {
         res.status(401).send(error);
     }
+}
 
+
+const sendEmail = async (req,res) =>{
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ayushsavaliya1111@gmail.com',
+          pass: 'spys lxhw oisz cipr'
+        }
+      });
+      
+      const mailOptions = {
+        from: 'ayushsavaliya1111@gmail.com',
+        to: 'ujasbaravaliya4411@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: 'testing'
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
 }
 
 const userget = async (req, res) => {
     const data = await user.find();
     console.log(data);
     res.status(202).send(data);
-}
+} 
 
 const userupdate = async (req, res) => {
     const data = await user.updateOne(
@@ -87,5 +114,5 @@ const userdelete = async (req, res) => {
 };
 
 module.exports = {
-    usercreate, userget, userupdate, userdelete, userlogin
+    usercreate, userget, userupdate, userdelete, userlogin, sendEmail
 }
