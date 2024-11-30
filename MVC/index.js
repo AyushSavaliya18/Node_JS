@@ -16,22 +16,7 @@ const db = require("./database/db")
 
 const { usercreate, userget, userupdate, userdelete, userlogin } = require("./Controllers/usercontroller")
 
-const verifytoken = async (req, res,next) => {
-    try {
-        const token = req.headers.authorization;
-        await jwt.verify(token, privatekey, (err) => {
-            if (err) {
-                res.status(401).send("User is Unauthorized");
-            }else{
-                next();
-            }
-        });
-    }
-    catch (error) {
-        res.status(401).send(error);
-
-    }
-}
+const {verifytoken} = require("./middleware/userAuth");
 //user API
 app.post("/insertuser", usercreate);
 app.get("/getuser", verifytoken,userget);

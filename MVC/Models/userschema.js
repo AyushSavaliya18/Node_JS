@@ -3,12 +3,14 @@ const userschema = new mongoose.Schema({
     name:{
         type:String,
         require:true,
-        trim:true
+        trim:true,
+        minlength : 2
     },
     email:{
             type:String,
             unique:true,
             require:true,
+            lowercase:true,
             trim:true
     } ,
     password:{
@@ -18,7 +20,9 @@ const userschema = new mongoose.Schema({
     },
     mobile: {type:Number,
         require:true,
-        trim:true
+        trim:true,
+        minlength:10,
+        maxlength:10
     }
 });
 const userModel = mongoose.model("user", userschema);

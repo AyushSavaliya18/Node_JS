@@ -6,6 +6,18 @@ const privatekey = "#A*y*U*s*h#2710";
 const usercreate = async (req, res) => {
 
     const { name, email, password, mobile } = req.body
+    //validation for name
+    if (!/^[a-zA-Z]+$/.test(name)) {
+        return res.status(401).send({ message: "Name must contain only letters !!!"}); 
+        
+    }
+
+    //validaiton for email
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+        return res.status(401).send({ message: "Invalid Email !!!" });
+        
+    }
+
     const bpass = await bcrypt.hash(password, 12);
     console.log(bpass);
     const userdata = {
@@ -18,6 +30,7 @@ const usercreate = async (req, res) => {
     console.log(data);
     res.status(201).send(data);
 }
+
 const userlogin = async (req, res) => {
     try {
         const { email, password } = req.body;
