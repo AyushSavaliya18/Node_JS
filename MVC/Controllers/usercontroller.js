@@ -2,8 +2,7 @@ const user = require("../Models/userschema");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const privatekey = "#A*y*U*s*h#2710";
-const nodemailer = require('nodemailer')
-// const mail = require("nodemailer ");
+
 
 const usercreate = async (req, res) => {
 
@@ -32,7 +31,6 @@ const usercreate = async (req, res) => {
     console.log(data);
     res.status(201).send(data);
 }
-
 const userlogin = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -62,33 +60,6 @@ const userlogin = async (req, res) => {
 }
 
 
-const sendEmail = async (req, res) => {
-    const otp = Math.floor(100000 + Math.random() * 900000);
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'ayushsavaliya1111@gmail.com',
-            pass: 'spys lxhw oisz cipr'
-        }
-    });
-
-    const mailOptions = {
-        from: 'ayushsavaliya1111@gmail.com',
-        to: 'ayushsavaliya18@gmail.com',
-        subject: 'Two-Factor Authentications',
-        text:`Your code of Two-Factor Authentications is :${otp}`
-    };
-
-    console.log(mailOptions);
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent: ' + info.response);
-        }
-    });
-}
-
 const userget = async (req, res) => {
     const data = await user.find();
     console.log(data);
@@ -116,5 +87,5 @@ const userdelete = async (req, res) => {
 };
 
 module.exports = {
-    usercreate, userget, userupdate, userdelete, userlogin, sendEmail
+    usercreate, userget, userupdate, userdelete,userlogin
 }

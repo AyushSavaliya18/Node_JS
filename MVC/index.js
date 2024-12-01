@@ -1,5 +1,4 @@
 const express = require("express");
-
 const jwt = require('jsonwebtoken');
 const privatekey = "#A*y*U*s*h#2710";
 
@@ -16,7 +15,8 @@ const db = require("./database/db")
 //user functions
 
 const {verifytoken} = require("./middleware/userAuth");
-const { usercreate, userget, userupdate, userdelete, userlogin,sendEmail } = require("./Controllers/usercontroller")
+const {usercreate, userget, userupdate, userdelete,userlogin} = require("./Controllers/usercontroller")
+const {sendEmail } = require("./Controllers/mail")
 
 //send email api
 app.get("/sendEmail",sendEmail);
