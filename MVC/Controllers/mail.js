@@ -12,9 +12,9 @@ const sendEmail = async (req, res) => {
 
     const mailOptions = {
         from: 'ayushsavaliya1111@gmail.com',
-        to: 'ayushsavaliya18@gmail.com',
+        to: 'manthandhameliya82382@gmail.com',
         subject: 'Two-Factor Authentications',
-        text:`Your code of Two-Factor Authentication is :${otp}`
+        html:`<h1>Your code of Two-Factor Authentication is :${otp} </h1>`,
     };
 
     console.log(mailOptions);

@@ -15,8 +15,9 @@ const db = require("./database/db")
 //user functions
 
 const {verifytoken} = require("./middleware/userAuth");
-const {usercreate, userget, userupdate, userdelete,userlogin} = require("./Controllers/usercontroller")
+const {usercreate, userget, userupdate, userdelete} = require("./Controllers/usercontroller")
 const {sendEmail } = require("./Controllers/mail")
+const {userlogin} = require("./Controllers/login")
 
 //send email api
 app.get("/sendEmail",sendEmail);
