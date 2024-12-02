@@ -22,8 +22,9 @@ const sendEmail = async (req, res) => {
         if (error) {
             console.log(error);
         } else {
-            console.log('Email sent: ' + info.response);
+            console.log('Email sent successfully!!: ' + info.response);
         }
     });
+
 }
 module.exports = {sendEmail}
