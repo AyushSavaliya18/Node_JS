@@ -23,6 +23,10 @@ const userschema = new mongoose.Schema({
         trim:true,
         minlength:10,
         maxlength:10
+    },
+    Otp:{
+        type:Number,
+        default:0,
     }
 });
 const userModel = mongoose.model("user", userschema);

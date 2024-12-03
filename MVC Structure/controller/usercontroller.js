@@ -3,24 +3,21 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const privatekey = "#A*y*U*s*h#2710";
 
-
 const usercreate = async (req, res) => {
 
     const { name, email, password, mobile } = req.body
     //validation for name
     if (!/^[a-zA-Z]+$/.test(name)) {
         return res.status(401).send({ message: "Name must contain only letters !!!" });
-
     }
 
     //validaiton for email
     if (!/^\S+@\S+\.\S+$/.test(email)) {
         return res.status(401).send({ message: "Invalid Email !!!" });
-
     }
 
     const bpass = await bcrypt.hash(password, 12);
-    console.log(bpass);
+    console.log("Encrypted Password", bpass);
     const userdata = {
         name: name,
         email: email,
@@ -43,7 +40,7 @@ const userlogin = async (req, res) => {
                 message: "email is not valid"
             });
         }
-        const userpassword = await bcrypt.compare(password, login.password);
+        const userpassword = bcrypt.compare(password, login.password);
         console.log("User Password:", userpassword);
 
         if (userpassword) {
@@ -52,13 +49,12 @@ const userlogin = async (req, res) => {
             res.status(202).send({ message: "User Login Sucessfully !!!", login, token: token })
 
         } else {
-            res.status(401).send(" Entered Password is Wrong")
+            res.status(401).send("Entered Password is Wrong");
         }
     } catch (error) {
         res.status(401).send(error);
     }
 }
-
 
 const userget = async (req, res) => {
     const data = await user.find();
@@ -79,7 +75,6 @@ const userupdate = async (req, res) => {
     res.status(202).send(data);
 }
 
-
 const userdelete = async (req, res) => {
     const data = await user.deleteOne({ _id: req.params.id });
     console.log(data);
@@ -87,5 +82,5 @@ const userdelete = async (req, res) => {
 };
 
 module.exports = {
-    usercreate, userget, userupdate, userdelete,userlogin
+    usercreate, userget, userupdate, userdelete, userlogin
 }

@@ -42,5 +42,4 @@ app.post("/createcategory", createcategory);
 app.get("/getcategory", getcategory);
 app.put("/updatecategory/:id", updatecategory);
 app.delete("/deletecategory/:id", deletecategory);
-
 app.listen(3000);
