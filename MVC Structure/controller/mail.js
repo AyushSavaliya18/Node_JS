@@ -12,7 +12,6 @@ const sendEmail = async (req, res) => {
     }
 
     const storeotp = await userModel.findByIdAndUpdate({_id:findemail.id},{Otp:otp},{new:true})
-
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -23,7 +22,7 @@ const sendEmail = async (req, res) => {
 
     const mailOptions = {
         from: 'ayushsavaliya1111@gmail.com',
-        to: 'ayushsavaliya18@gmail.com',
+        to: email,
         subject: 'Two-Factor Authentications',
         html:`<h1>Your code of Two-Factor Authentication is :${otp} </h1>`,
     };
