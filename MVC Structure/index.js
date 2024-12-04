@@ -16,10 +16,16 @@ const db = require("./database/db")
 
 const {verifytoken} = require("./middleware/userAuth");
 const {usercreate, userget, userupdate, userdelete,userlogin} = require("./controller/usercontroller")
-const {sendEmail } = require("./controller/mail")
 
 //send email api
+const {sendEmail } = require("./controller/mail")
 app.get("/sendEmail",sendEmail);
+
+//otp match api
+const {submitotp,resetpassword} = require("./controller/FPass")
+app.post("/submitotp",submitotp);
+app.post("/reset",resetpassword);
+
 
 //user API
 app.post("/insertuser", usercreate);
