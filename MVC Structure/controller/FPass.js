@@ -9,13 +9,14 @@ const submitotp = async (req, res) => {
         if (!emailotp) {
             return res.status(404).send({ message: "Email not found!" });
         }
-
+        
         if (emailotp.Otp === otp) {
             return res.status(202).send({ message: "Otp Matched Successfully!!!" });
         } else {
             return res.status(406).send({ message: "Otp Not Matched!!!" });
+            
         }
-
+        
     } catch (error) {
         console.error(error); // Log the error for debugging
         return res.status(500).send({ message: "An error occurred", error: error.message });
@@ -32,8 +33,6 @@ const resetpassword = async (req, res) => {
         }
 
         const bpass = await bcrypt.hash(password, 12);
-        console.log("Hashed Password:", bpass); 
-
         const updatepassword = await user.findByIdAndUpdate(emailfind._id, { password: bpass }, { new: true });
 
         if (updatepassword) {

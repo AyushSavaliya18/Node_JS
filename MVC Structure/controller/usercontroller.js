@@ -40,7 +40,7 @@ const userlogin = async (req, res) => {
                 message: "email is not valid"
             });
         }
-        const userpassword = bcrypt.compare(password, login.password);
+        const userpassword = await bcrypt.compare(password, login.password);
         console.log("User Password:", userpassword);
 
         if (userpassword) {
@@ -80,6 +80,7 @@ const userdelete = async (req, res) => {
     console.log(data);
     res.status(202).send(data);
 };
+
 
 module.exports = {
     usercreate, userget, userupdate, userdelete, userlogin
