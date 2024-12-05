@@ -2,8 +2,10 @@ const nodemailer = require('nodemailer');
 const userModel = require('../model/userSchema');
 
 const sendEmail = async (req, res) => {
+
     const otp = Math.floor(100000 + Math.random() * 900000);
     const {email} = req.body;
+
     const findemail = await userModel.findOne({email:email})
     console.log(findemail);
 
@@ -21,22 +23,22 @@ const sendEmail = async (req, res) => {
     });
 
     const mailOptions = {
+
         from: 'ayushsavaliya1111@gmail.com',
         to: email,
         subject: 'Two-Factor Authentications',
         html:`<h1>Your code of Two-Factor Authentication is :${otp} </h1>`,
+
     };
 
-    // console.log(mailOptions);
+    console.log(mailOptions);
 
     transporter.sendMail(mailOptions, function (error) {
         if (error) {
             console.log(error);
         } else {
             console.log('Email sent successfully!!: ',storeotp);
-
         }
     });
-
 }
 module.exports = {sendEmail}
