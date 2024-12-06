@@ -29,6 +29,4 @@ const userschema = new mongoose.Schema({
         default: 0,
     }
 });
-
-// Export the model directly
 module.exports = mongoose.model("user", userschema);
