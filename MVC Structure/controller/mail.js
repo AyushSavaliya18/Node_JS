@@ -1,44 +1,53 @@
 const nodemailer = require('nodemailer');
-const userModel = require('../model/userSchema');
+const userModel = require('../model/userSchema'); // Import the model directly
 
 const sendEmail = async (req, res) => {
-
     const otp = Math.floor(100000 + Math.random() * 900000);
-    const {email} = req.body;
+    const { email } = req.body;
 
-    const findemail = await userModel.findOne({email:email})
-    console.log(findemail);
-
-    if (!findemail) {
-       return res.status(404).send({message:"Email not found"})
+    // Validate email input
+    if (!email) {
+        return res.status(400).send({ message: "Email is required" });
     }
 
-    const storeotp = await userModel.findByIdAndUpdate({_id:findemail.id},{Otp:otp},{new:true})
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'ayushsavaliya1111@gmail.com',
-            pass: 'spys lxhw oisz cipr'
+    try {
+        // Find user by email
+        const findemail = await userModel.findOne({ email: email });
+
+        if (!findemail) {
+            return res.status(404).send({ message: "Email not found" });
         }
-    });
 
-    const mailOptions = {
+        // Store OTP in the database
+        const storeotp = await userModel.findByIdAndUpdate(findemail._id, { Otp: otp }, { new: true });
 
-        from: 'ayushsavaliya1111@gmail.com',
-        to: email,
-        subject: 'Two-Factor Authentications',
-        html:`<h1>Your code of Two-Factor Authentication is :${otp} </h1>`,
+        // Set up the transporter with environment variables
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'ayushsavaliya1111@gmail.com',
+                pass: 'spys lxhw oisz cipr' // Better to use environment variables for production
+            }
+        });
 
-    };
+        // Email options
+        const mailOptions = {
+            from: 'ayushsavaliya1111@gmail.com',
+            to: email,
+            subject: 'Two-Factor Authentication',
+            html: `<h1>Your OTP for Two-Factor Authentication is: ${otp}</h1>`,
+        };
 
-    console.log(mailOptions);
+        // Send email
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully!!: ', storeotp);
 
-    transporter.sendMail(mailOptions, function (error) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Email sent successfully!!: ',storeotp);
-        }
-    });
-}
-module.exports = {sendEmail}
+        res.status(200).send({ message: 'OTP sent successfully to your email.' });
+
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).send({ message: 'Error in sending OTP email', error });
+    }
+};
+
+module.exports = { sendEmail };

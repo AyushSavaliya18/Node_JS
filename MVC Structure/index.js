@@ -1,6 +1,6 @@
 const express = require("express");
-const jwt = require('jsonwebtoken');
-const privatekey = "#A*y*U*s*h#2710";
+// const jwt = require('jsonwebtoken');
+// const privatekey = "#A*y*U*s*h#2710";
 
 const app = express(); 
 const bodyParser = require('body-parser')
@@ -19,7 +19,7 @@ const {usercreate,
 
 //Api For send email 
 const {sendEmail } = require("./controller/mail")
-app.get("/sendEmail",sendEmail);
+app.post("/sendEmail",sendEmail);
 
 //API For otp match 
 const {submitotp,resetpassword} = require("./controller/FPass")

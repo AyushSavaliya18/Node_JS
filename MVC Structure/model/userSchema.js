@@ -1,40 +1,34 @@
 const mongoose = require("mongoose");
 
 const userschema = new mongoose.Schema({
-    name:{
-        type:String,
-        require:true,
-        trim:true,
-        minlength : 2
+    name: {
+        type: String,
+        required: true,
+        trim: true,
+        minlength: 2
     },
-
-    email:{
-            type:String,
-            unique:true,
-            require:true,
-            lowercase:true,
-            trim:true
-    } ,
-
-    password:{
-        type:String,
-        require:true,
-        trim:true
+    email: {
+        type: String,
+        required: true,
+        unique: true
     },
-
-    mobile: {type:Number,
-        require:true,
-        trim:true,
-        minlength:10,
-        maxlength:10
+    password: {
+        type: String,
+        required: true,
+        trim: true
     },
-
-    Otp:{
-        type:Number,
-        default:0,
+    mobile: {
+        type: Number,
+        required: true,
+        trim: true,
+        minlength: 10,
+        maxlength: 10
+    },
+    Otp: {
+        type: Number,
+        default: 0,
     }
-
 });
-const userModel = mongoose.model("user", userschema);
 
-module.exports ={userModel}
+// Export the model directly
+module.exports = mongoose.model("user", userschema);
