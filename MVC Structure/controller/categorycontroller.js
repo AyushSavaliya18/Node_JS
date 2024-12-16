@@ -1,8 +1,8 @@
-const categorymodel = require("../model/categoryschema");
+const categorymodel =require ('../model/categoryschema');
 
-const createcategory = async (req, res) => {
+async function createcategory(req, res) {
 
-    const categorydata = { category: req.body.category }
+    const categorydata = { category: req.body.category };
     const data = await categorymodel.create(categorydata);
     console.log(data);
     res.send(data);
