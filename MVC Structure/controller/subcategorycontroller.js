@@ -3,14 +3,13 @@ const subcategorymodel = require("../model/subcategoryschema");
 
 const createsubcategory = async (req, res) => {
     try {
-        const { subcategory ,category ,categoryid } = req.body;
+        const { subcategory  ,categoryid } = req.body;
         const subcategoryData = new subcategorymodel({
             subcategory: subcategory,
-            category: category,
             categoryid: categoryid
         });
 
-        const data = await subcategoryData.save();
+        const data = await subcategoryData.save()
         console.log("Created Subcategory: ", data);
         res.status(201).send(data);
     } catch (error) {
@@ -21,7 +20,7 @@ const createsubcategory = async (req, res) => {
 
 const getsubcategory = async (req, res) => {
     try {
-        const data = await subcategorymodel.find();
+        const data = await subcategorymodel.find().populate("categoryid");;
         console.log("Fetched Subcategories: ", data);
         res.status(200).send(data);
     } catch (error) {
