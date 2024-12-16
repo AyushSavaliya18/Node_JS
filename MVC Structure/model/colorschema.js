@@ -1,16 +1,17 @@
 const mongoose = require("mongoose");
 
-const colorchema = new mongoose.Schema({
+const colorSchema = new mongoose.Schema({
     Color_id: {
-        type: Number,
-        required: true,
-        trim: true,
-        minlength: 2
+        type: mongoose.Types.ObjectId,
+        ref : "Color"
     },
     Color_code: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     }
 });
-module.exports = mongoose.model("color", colorchema);
+
+// Create the model after the schema definition
+const Color = mongoose.model('Color', colorSchema);
+
+module.exports = Color;
