@@ -3,9 +3,11 @@ const subcategorymodel = require("../model/subcategoryschema");
 
 const createsubcategory = async (req, res) => {
     try {
-        const { subcategory } = req.body;
+        const { subcategory ,category ,categoryid } = req.body;
         const subcategoryData = new subcategorymodel({
-            subcategory: subcategory.trim()
+            subcategory: subcategory,
+            category: category,
+            categoryid: categoryid
         });
 
         const data = await subcategoryData.save();
