@@ -17,14 +17,14 @@ const createcolor = async  (req, res) =>{
         res.status(500).send('Error creating color');
     }
 }
-const getonecolor = async (req, res) => {
+const getOneColor = async (req, res) => {
     try {
-        const colorId = req.body.id; 
+        const { id } = req.params;
 
-        const data = await colormodel.findById(colorId); 
+        const data = await colormodel.findOne({ _id: id });
 
         if (!data) {
-            return res.status(404).send({ message: 'color not found' });
+            return res.status(404).send({ message: 'Color not found' });
         }
 
         res.status(200).send(data);
@@ -34,4 +34,6 @@ const getonecolor = async (req, res) => {
         res.status(500).send({ message: "An error occurred while finding color." });
     }
 };
-module.exports = { createcolor,getonecolor}
+
+
+module.exports = { createcolor,getOneColor}

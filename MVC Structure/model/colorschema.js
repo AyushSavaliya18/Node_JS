@@ -2,8 +2,9 @@ const mongoose = require("mongoose");
 
 const colorSchema = new mongoose.Schema({
     Color_id: {
-        type: mongoose.Types.ObjectId,
-        ref : "Color"
+        type: mongoose.Schema.Types.ObjectId,  // Corrected to use Schema.Types.ObjectId
+        ref: "Color",
+        required: true
     },
     Color_code: {
         type: String,
