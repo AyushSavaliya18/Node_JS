@@ -34,6 +34,36 @@ const getOneColor = async (req, res) => {
         res.status(500).send({ message: "An error occurred while finding color." });
     }
 };
+const updatecolor = async (req, res) => {
+    try {
+        const { color } = req.body; // Get the color from request body
+        const Color_id = req.params.id; // Get the subcategory ID from the URL params
+
+        if (!color || typeof color !== 'string' || color.trim().length === 0) {
+            return res.status(400).send({ message: "Invalid color value." });
+        }
+
+        const trimmedColor = color.trim(); // Trim the color string
+
+        const data = await colormodel.updateOne(
+            { _id: Color_id },
+            { color: trimmedColor }
+        );
+
+        // If no document was modified, check if the color was already the same
+        if (data.nModified === 0) {
+            return res.status(404).send({ message: "No matching subcategory found or color is already up-to-date." });
+        }
+
+        // Success: return updated data
+        return res.status(200).send({message: "Color updated successfully.",data});
+
+    } catch (error) {
+        console.error("Error updating color: ", error);
+        return res.status(500).send({ message: "An error occurred while updating the color." });
+    }
+};
 
 
-module.exports = { createcolor,getOneColor}
+
+module.exports = { createcolor,getOneColor,updatecolor}
