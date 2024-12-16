@@ -38,12 +38,14 @@ app.delete("/deleteuser/:id", userdelete);
 
 //Category Functions
 const { createcategory } = require("./controller/categorycontroller")
+const { getonecategory } = require("./controller/categorycontroller")
 const { getcategory } = require("./controller/categorycontroller")
 const { updatecategory } = require("./controller/categorycontroller")
 const { deletecategory } = require("./controller/categorycontroller")
 
 //Category API
 app.post("/createcategory", createcategory);
+app.get("/getonecategory", getonecategory);
 app.get("/getcategory", getcategory);
 app.put("/updatecategory/:id", updatecategory);
 app.delete("/deletecategory/:id", deletecategory);

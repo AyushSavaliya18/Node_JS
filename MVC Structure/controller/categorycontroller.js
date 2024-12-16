@@ -7,6 +7,23 @@ const createcategory = async (req, res) => {
     console.log(data);
     res.send(data);
 }
+const getonecategory = async (req, res) => {
+    try {
+        const categoryId = req.body.id; 
+
+        const data = await categorymodel.findById(categoryId); 
+
+        if (!data) {
+            return res.status(404).send({ message: 'Category not found' });
+        }
+
+        res.status(200).send(data);
+        console.log(data);
+    } catch (error) {
+        console.error("Error finding Category:", error);
+        res.status(500).send({ message: "An error occurred while finding Category." });
+    }
+};
 
 const getcategory = async (req, res) => {
     const data = await categorymodel.find();
@@ -30,4 +47,4 @@ const deletecategory = async (req, res) => {
     console.log(data);
     res.send(data);
 }
-module.exports = { createcategory, getcategory, updatecategory, deletecategory }
+module.exports = { createcategory,getonecategory ,getcategory, updatecategory, deletecategory }
