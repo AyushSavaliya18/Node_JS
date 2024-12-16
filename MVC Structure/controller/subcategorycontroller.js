@@ -17,6 +17,24 @@ const createsubcategory = async (req, res) => {
         res.status(500).send({ message: "An error occurred while creating the subcategory." });
     }
 };
+const getonesubcategory = async (req, res) => {
+    try {
+        const subcategoryId = req.body.id; 
+
+        const data = await subcategorymodel.findById(subcategoryId).populate('categoryid'); 
+
+        if (!data) {
+            return res.status(404).send({ message: 'Subcategory not found' });
+        }
+
+        res.status(200).send(data);
+        console.log(data);
+    } catch (error) {
+        console.error("Error finding subcategory:", error);
+        res.status(500).send({ message: "An error occurred while finding subcategory." });
+    }
+};
+
 
 const getsubcategory = async (req, res) => {
     try {
@@ -61,4 +79,4 @@ const deletesubcategory = async (req, res) => {
     }
 };
 
-module.exports = { createsubcategory, getsubcategory, updatesubcategory, deletesubcategory };
+module.exports = { createsubcategory,getonesubcategory ,getsubcategory, updatesubcategory, deletesubcategory };

@@ -50,6 +50,7 @@ app.delete("/deletecategory/:id", deletecategory);
 
 // sub category Function
 const { createsubcategory } = require("./controller/subcategorycontroller")
+const { getonesubcategory } = require("./controller/subcategorycontroller")
 const { getsubcategory } = require("./controller/subcategorycontroller")
 const { updatesubcategory } = require("./controller/subcategorycontroller")
 const { deletesubcategory } = require("./controller/subcategorycontroller")
@@ -57,6 +58,7 @@ const { deletesubcategory } = require("./controller/subcategorycontroller")
 //sub category API
 app.post("/createsubcategory",createsubcategory);
 app.get("/getsubcategory",getsubcategory);
+app.get("/getonesubcategory",getonesubcategory);
 app.put("/updatesubcategory/:id",updatesubcategory);
 app.delete("/deletesubcategory/:id", deletesubcategory);
 app.listen(3000);
