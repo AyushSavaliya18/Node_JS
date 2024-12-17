@@ -64,4 +64,16 @@ const updatesize = async (req, res) => {
         return res.status(500).send({ message: "Error updating Size. Please try again later." });
     }
 };
-module.exports = { createsize, getOneSize, getsize, updatesize };
+
+const deletesize = async (req, res) => {
+    try {
+        const data = await sizemodel.deleteOne({ _id: req.params.id });
+
+        console.log("Deleted Size: ", data);
+        res.status(200).send({ message: "Size deleted successfully.",data });
+    } catch (error) {
+        console.error("Error deleting Size: ", error);
+        res.status(500).send({ message: "An error occurred while deleting the Size." });
+    }
+};
+module.exports = { createsize, getOneSize, getsize, updatesize,deletesize };

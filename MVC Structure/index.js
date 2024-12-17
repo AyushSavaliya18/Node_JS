@@ -83,12 +83,15 @@ const {createsize} = require('./controller/sizecontroller')
 const {getOneSize}= require("./controller/sizecontroller")
 const {getsize}= require("./controller/sizecontroller")
 const {updatesize}= require("./controller/sizecontroller")
+const {deletesize}= require("./controller/sizecontroller")
 
 // Size API
 app.post("/createsize",createsize);
 app.get('/size/:id', getOneSize);
 app.get('/getsize', getsize);
 app.put('/updatesize/:id', updatesize);
+app.delete("/deletesize/:id", deletesize);
+
 
 
 app.listen(3000);
