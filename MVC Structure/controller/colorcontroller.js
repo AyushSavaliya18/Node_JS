@@ -63,8 +63,15 @@ const updatecolor = async (req, res) => {
     }
 };
 
+const deletecolor = async (req, res) => {
+    try {
+        const data = await colormodel.deleteOne({ _id: req.params.id });
 
-
-
-
-module.exports = { createcolor, getOneColor, getcolor, updatecolor }
+        console.log("Deleted Subcategory: ", data);
+        res.status(200).send({ message: "Color deleted successfully.",data });
+    } catch (error) {
+        console.error("Error deleting Color: ", error);
+        res.status(500).send({ message: "An error occurred while deleting the Color." });
+    }
+};
+module.exports = { createcolor, getOneColor, getcolor, updatecolor, deletecolor}

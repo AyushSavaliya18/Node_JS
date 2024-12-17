@@ -69,10 +69,13 @@ const {createcolor} = require('./controller/colorcontroller')
 const {getOneColor} = require('./controller/colorcontroller')
 const {getcolor} = require('./controller/colorcontroller')
 const {updatecolor} = require('./controller/colorcontroller')
+const {deletecolor}= require('./controller/colorcontroller')
 //color API
 app.post("/createcolor",createcolor);
 app.get('/color/:id', getOneColor);
 app.get('/getcolor/', getcolor);
 app.put('/updatecolor/:id', updatecolor);
+app.delete("/deletecolor/:id", deletecolor);
+
 
 app.listen(3000);
