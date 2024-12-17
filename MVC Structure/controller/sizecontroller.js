@@ -45,4 +45,23 @@ const getsize = async (req, res) => {
         res.status(500).send({ message: "An error occurred while fetching Sizes." });
     }
 };
-module.exports = {createsize,getOneSize,getsize};
+
+const updatesize = async (req, res) => {
+    const { Size_name } = req.body;
+    const Size_id = req.params.id;
+
+    try {
+
+        const data = await sizemodel.updateOne(
+            { _id: Size_id },
+            { $set: { Size_name: Size_name } }
+        );
+
+        console.log("Update result:", data);
+        res.status(200).send({ message: "Size updated successfully." });
+    } catch (error) {
+        console.error("Error updating Size:", error);
+        return res.status(500).send({ message: "Error updating Size. Please try again later." });
+    }
+};
+module.exports = { createsize, getOneSize, getsize, updatesize };
