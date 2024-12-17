@@ -73,6 +73,6 @@ const {updatecolor} = require('./controller/colorcontroller')
 app.post("/createcolor",createcolor);
 app.get('/color/:id', getOneColor);
 app.get('/getcolor/', getcolor);
-app.put("/updatecolor/:Color_id",updatecolor);
+app.put('/updatecolor/:id', updatecolor);
 
 app.listen(3000);

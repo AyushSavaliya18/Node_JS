@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 const colorSchema = new mongoose.Schema({
     Color_id: {
         type: mongoose.Schema.Types.ObjectId,  // Corrected to use Schema.Types.ObjectId
-        ref: "Color",
-        required: true
+        ref: "Color"
     },
     Color_code: {
         type: String,

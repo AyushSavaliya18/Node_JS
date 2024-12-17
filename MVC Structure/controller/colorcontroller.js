@@ -1,22 +1,22 @@
-const colormodel =require ('../model/colorschema');
+const colormodel = require('../model/colorschema');
 
-const createcolor = async  (req, res) =>{
+const createcolor = async (req, res) => {
 
-    const {Color_code} = req.body;
-    
+    const { Color_code } = req.body;
+
     try {
 
         const createColor = {
-            Color_code:Color_code
-        }   
+            Color_code: Color_code
+        }
         const data = await colormodel.create(createColor);
         console.log(data);
-        res.send(data);
+        res.status(201).send(data);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error creating color');
+        res.status(400).send('Error creating color');
     }
-}
+};
 const getOneColor = async (req, res) => {
     try {
         const { id } = req.params;
@@ -37,43 +37,35 @@ const getOneColor = async (req, res) => {
 const getcolor = async (req, res) => {
     try {
         const data = await colormodel.find();
-        console.log("Fetched Subcategories: ", data);
+        console.log("Fetched Color Codes: ", data);
         res.status(200).send(data);
     } catch (error) {
-        console.error("Error fetching subcategories: ", error);
-        res.status(500).send({ message: "An error occurred while fetching subcategories." });
+        console.error("Error fetching Color: ", error);
+        res.status(500).send({ message: "An error occurred while fetching Colors." });
     }
 };
 const updatecolor = async (req, res) => {
+    const { Color_code } = req.body;
+    const Color_id = req.params.id;
+
     try {
-        const { color } = req.body; // Get the color from request body
-        const Color_id = req.params.id; // Get the subcategory ID from the URL params
-
-        if (!color || typeof color !== 'string' || color.trim().length === 0) {
-            return res.status(400).send({ message: "Invalid color value." });
-        }
-
-        const trimmedColor = color.trim(); // Trim the color string
-
+        // Update the color in the database
         const data = await colormodel.updateOne(
-            { _id: Color_id },
-            { color: trimmedColor }
+            { _id: Color_id }, // Find the color by its _id
+            { $set: { Color_code: Color_code } } // Use $set to update the color field
         );
 
-        // If no document was modified, check if the color was already the same
-        if (data.nModified === 0) {
-            return res.status(404).send({ message: "No matching subcategory found or color is already up-to-date." });
-        }
-
-        // Success: return updated data
-        return res.status(200).send({message: "Color updated successfully.",data});
-
+        // If the update was successful
+        console.log("Update result:", data);
+        res.status(200).send({ message: "Color updated successfully." });
     } catch (error) {
-        console.error("Error updating color: ", error);
-        return res.status(500).send({ message: "An error occurred while updating the color." });
+        console.error("Error updating color:", error);
+        return res.status(500).send({ message: "Error updating color. Please try again later." });
     }
 };
 
 
 
-module.exports = { createcolor,getOneColor,getcolor,updatecolor}
+
+
+module.exports = { createcolor, getOneColor, getcolor, updatecolor }
