@@ -49,13 +49,12 @@ const updatecolor = async (req, res) => {
     const Color_id = req.params.id;
 
     try {
-        // Update the color in the database
+
         const data = await colormodel.updateOne(
             { _id: Color_id }, // Find the color by its _id
             { $set: { Color_code: Color_code } } // Use $set to update the color field
         );
 
-        // If the update was successful
         console.log("Update result:", data);
         res.status(200).send({ message: "Color updated successfully." });
     } catch (error) {
