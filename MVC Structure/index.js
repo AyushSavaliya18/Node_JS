@@ -5,7 +5,6 @@ const express = require("express");
 const app = express();
 const bodyParser = require('body-parser')
 
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // app.use(express.json()) 
@@ -91,7 +90,5 @@ app.get('/size/:id', getOneSize);
 app.get('/getsize', getsize);
 app.put('/updatesize/:id', updatesize);
 app.delete("/deletesize/:id", deletesize);
-
-
 
 app.listen(3000);
