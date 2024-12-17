@@ -34,6 +34,16 @@ const getOneColor = async (req, res) => {
         res.status(500).send({ message: "An error occurred while finding color." });
     }
 };
+const getcolor = async (req, res) => {
+    try {
+        const data = await colormodel.find();
+        console.log("Fetched Subcategories: ", data);
+        res.status(200).send(data);
+    } catch (error) {
+        console.error("Error fetching subcategories: ", error);
+        res.status(500).send({ message: "An error occurred while fetching subcategories." });
+    }
+};
 const updatecolor = async (req, res) => {
     try {
         const { color } = req.body; // Get the color from request body
@@ -66,4 +76,4 @@ const updatecolor = async (req, res) => {
 
 
 
-module.exports = { createcolor,getOneColor,updatecolor}
+module.exports = { createcolor,getOneColor,getcolor,updatecolor}

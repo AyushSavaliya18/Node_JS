@@ -67,10 +67,12 @@ app.delete("/deletesubcategory/:id", deletesubcategory);
 //Color Function
 const {createcolor} = require('./controller/colorcontroller')
 const {getOneColor} = require('./controller/colorcontroller')
+const {getcolor} = require('./controller/colorcontroller')
 const {updatecolor} = require('./controller/colorcontroller')
 //color API
 app.post("/createcolor",createcolor);
 app.get('/color/:id', getOneColor);
+app.get('/getcolor/', getcolor);
 app.put("/updatecolor/:Color_id",updatecolor);
 
 app.listen(3000);
