@@ -35,5 +35,14 @@ const getOneSize = async (req, res) => {
     }
 };
 
-
+const getsize = async (req, res) => {
+    try {
+        const data = await sizemodel.find();
+        console.log("Fetched Size Names: ", data);
+        res.status(200).send(data);
+    } catch (error) {
+        console.error("Error fetching Sizes: ", error);
+        res.status(500).send({ message: "An error occurred while fetching Sizes." });
+    }
+};
 module.exports = {createsize,getOneSize,getsize};
