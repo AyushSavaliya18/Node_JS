@@ -70,6 +70,7 @@ const {getOneColor} = require('./controller/colorcontroller')
 const {getcolor} = require('./controller/colorcontroller')
 const {updatecolor} = require('./controller/colorcontroller')
 const {deletecolor}= require('./controller/colorcontroller')
+
 //color API
 app.post("/createcolor",createcolor);
 app.get('/color/:id', getOneColor);
@@ -77,5 +78,10 @@ app.get('/getcolor/', getcolor);
 app.put('/updatecolor/:id', updatecolor);
 app.delete("/deletecolor/:id", deletecolor);
 
+//Size Function
+const {createsize} = require('./controller/sizecontroller')
+
+// Size API
+app.post("/createsize",createsize);
 
 app.listen(3000);
