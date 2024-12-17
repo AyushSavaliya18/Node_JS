@@ -80,8 +80,11 @@ app.delete("/deletecolor/:id", deletecolor);
 
 //Size Function
 const {createsize} = require('./controller/sizecontroller')
+const {getOneSize}= require("./controller/sizecontroller")
 
 // Size API
 app.post("/createsize",createsize);
+app.get('/size/:id', getOneSize);
+
 
 app.listen(3000);

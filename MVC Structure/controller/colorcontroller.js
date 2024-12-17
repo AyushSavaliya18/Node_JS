@@ -17,6 +17,7 @@ const createcolor = async (req, res) => {
         res.status(400).send('Error creating color');
     }
 };
+
 const getOneColor = async (req, res) => {
     try {
         const { id } = req.params;
@@ -34,6 +35,7 @@ const getOneColor = async (req, res) => {
         res.status(500).send({ message: "An error occurred while finding color." });
     }
 };
+
 const getcolor = async (req, res) => {
     try {
         const data = await colormodel.find();
@@ -44,6 +46,7 @@ const getcolor = async (req, res) => {
         res.status(500).send({ message: "An error occurred while fetching Colors." });
     }
 };
+
 const updatecolor = async (req, res) => {
     const { Color_code } = req.body;
     const Color_id = req.params.id;
