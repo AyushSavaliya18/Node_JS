@@ -58,7 +58,7 @@ const updatesize = async (req, res) => {
         );
 
         console.log("Update result:", data);
-        res.status(200).send({ message: "Size updated successfully." });
+        res.status(200).send({ message: "Size updated successfully.",data });
     } catch (error) {
         console.error("Error updating Size:", error);
         return res.status(500).send({ message: "Error updating Size. Please try again later." });
