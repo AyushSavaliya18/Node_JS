@@ -1,4 +1,5 @@
 const express = require("express");
+const  multer = require("multer");
 // const jwt = require('jsonwebtoken');
 // const privatekey = "#A*y*U*s*h#2710";
 
@@ -8,6 +9,18 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 // app.use(express.json()) 
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, '/images/images')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+  })
+  
+  const upload = multer({ storage: storage })
+  
 
 const db = require("./database/db")
 
