@@ -92,4 +92,7 @@ app.delete("/deletesize/:id", size.deletesize);
 
 //Product API
 app.post("/createproduct", upload.array('image', 3), product.createproduct);
+app.get('/searchproduct', product.searchproduct);
+app.get('/getproduct', product.productget);
+
 app.listen(3000);

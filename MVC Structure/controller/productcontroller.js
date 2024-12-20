@@ -41,6 +41,32 @@ const createproduct = async (req, res) => {
 
     }
 }
+
+const searchproduct = async (req, res) => {
+    try {
+  
+      const search = req.body.search;
+  
+      const searchData = await productmodel.find({ "product_name": { $regex: ".*" + search + ".*", $options: "i" } })
+      console.log(searchData);
+  
+      if (searchData.length > 0) {
+        res.status(200).send({ Message: "Product Matched", searchData })
+      } else {
+        res.status(400).send({ Message: "Product Not Found" })
+  
+      }
+  
+    } catch (error) {
+      res.send(error)
+    }
+  }
+  const productget = async (req, res) => {
+    const data = await productmodel.find().populate('Sub_c_id');
+    console.log(data);
+    res.send(data);
+  }
+  
 module.exports = {
-    createproduct
+    createproduct,searchproduct,productget
 }
