@@ -1,54 +1,61 @@
 const mongoose = require("mongoose");
 
-const userschema = new mongoose.Schema({
+const productSchema = new mongoose.Schema({
     product_id: {
-        type: String,
-        required: true,
-        trim: true,
-        unidue:true
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Product'
     },
-    product_name: {
+    Product_name: {
         type: String,
         required: true,
         trim:true
     },
-    price: {
+    Price: {
         type: Number,
         required: true,
-        trim: true
     },
-    deposit: {
+    Deposite: {
         type: Number,
         trim: true
     },
-    qty: {
+    Qty: {
         type: Number,
         trim: true
     },
-    description:{
+    Description:{
         type:String,
         trim:true
     },
-    subcategory_id:{
+    image:{
+        type:Array,
+        trim:true,
+        validate: [imageLimit, "Add only 3 products images"]
+    },
+    Sub_c_id:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Subcategory',
     },
-    category_id:{
+    Cat_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category'
     },
-    user_id:{
+    User_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'user'
     },
-    color_id:{
+    Color_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'color'
     },
-    size_id:{
+    Size_id:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'size'
     }
 
 });
-module.exports = mongoose.model("user", userschema);
+function imageLimit(value) {
+    return value.length <= 3; // Allow up to 3 images
+  }
+  const productmodel = mongoose.model("Product", productSchema);
+
+module.exports = productmodel;
