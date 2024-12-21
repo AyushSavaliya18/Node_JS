@@ -32,5 +32,11 @@ const createreview = async (req, res) => {
       res.status(500).json({ message: 'Error fetching review', error: error.message });
     }
   };
+  const getallreviews = async (req, res) => {
+    const data = await reviewmodel.find().populate('User_id').populate('Product_id');
+    console.log(data);
+    res.status(202).send(data);
+  };
   
-module.exports ={createreview,searchreview}
+  
+module.exports ={createreview,searchreview,getallreviews}

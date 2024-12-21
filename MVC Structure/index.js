@@ -102,6 +102,7 @@ app.delete("/deleteproduct/:id", product.productdelete);
 //Review API
 app.post("/createreview", review.createreview);
 app.get('/searchreview/:id', review.searchreview);
+app.get('/getallreviews', review.getallreviews);
 
 
 app.listen(3000);
