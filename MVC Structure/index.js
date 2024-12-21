@@ -29,7 +29,8 @@ const storage = multer.diskStorage({
     })
   }
 })  
-  const upload = multer({ storage: storage })
+const upload = multer({ storage: storage })
+
 const db = require("./database/db")
 
 const user = require("./controller/usercontroller")
@@ -94,5 +95,7 @@ app.delete("/deletesize/:id", size.deletesize);
 app.post("/createproduct", upload.array('image', 3), product.createproduct);
 app.get('/searchproduct', product.searchproduct);
 app.get('/getproduct', product.productget);
+app.put('/updateproduct/:id', product.productupdate);
+app.delete("/deleteproduct/:id", product.productdelete);
 
 app.listen(3000);
