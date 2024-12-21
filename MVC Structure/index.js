@@ -41,6 +41,7 @@ const size = require("./controller/sizecontroller")
 const product = require("./controller/productcontroller")
 const mail = require("./controller/mail")
 const FPass = require("./controller/FPass")
+const review =require("./controller/reviewcontroller")
 
 //user functions
 const { verifytoken } = require("./middleware/userAuth");
@@ -97,5 +98,10 @@ app.get('/searchproduct', product.searchproduct);
 app.get('/getproduct', product.productget);
 app.put('/updateproduct/:id', product.productupdate);
 app.delete("/deleteproduct/:id", product.productdelete);
+
+//Review API
+app.post("/createreview", review.createreview);
+app.get('/searchreview/:id', review.searchreview);
+
 
 app.listen(3000);
