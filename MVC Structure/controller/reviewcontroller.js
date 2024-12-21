@@ -37,6 +37,20 @@ const createreview = async (req, res) => {
     console.log(data);
     res.status(202).send(data);
   };
+  const reviewupdate = async (req, res) => {
+    const data = await reviewmodel.updateOne({ _id: req.params.id }, {
+      "Description": req.body.Description,
+      "User_id": req.body.User_id,
+      "Product_id": req.body.Product_id
+    })
+    console.log(data);
+    res.send(data);
+  }
+
+  const deletereview = async (req, res) => {
+    const data = await reviewmodel.deleteOne({ _id: req.params.id });
+    console.log(data);
+    res.send(data)
+  }
   
-  
-module.exports ={createreview,searchreview,getallreviews}
+module.exports ={createreview,searchreview,getallreviews,reviewupdate,deletereview}

@@ -103,6 +103,8 @@ app.delete("/deleteproduct/:id", product.productdelete);
 app.post("/createreview", review.createreview);
 app.get('/searchreview/:id', review.searchreview);
 app.get('/getallreviews', review.getallreviews);
+app.put('/updatereview/:id', review.reviewupdate);
+app.delete("/deletereview/:id", review.deletereview);
 
 
 app.listen(3000);
