@@ -1,5 +1,5 @@
 const express = require("express");
-const  multer = require("multer");
+const multer = require("multer");
 // const jwt = require('jsonwebtoken');
 // const privatekey = "#A*y*U*s*h#2710";
 
@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
       }
     })
   }
-})  
+})
 const upload = multer({ storage: storage })
 
 const db = require("./database/db")
@@ -41,7 +41,8 @@ const size = require("./controller/sizecontroller")
 const product = require("./controller/productcontroller")
 const mail = require("./controller/mail")
 const FPass = require("./controller/FPass")
-const review =require("./controller/reviewcontroller")
+const review = require("./controller/reviewcontroller")
+const address = require("./controller/addresscontroller")
 
 //user functions
 const { verifytoken } = require("./middleware/userAuth");
@@ -70,14 +71,14 @@ app.put("/updatecategory/:id", category.updatecategory);
 app.delete("/deletecategory/:id", category.deletecategory);
 
 //sub category API
-app.post("/createsubcategory",subcategory.createsubcategory);
-app.get("/getsubcategory",subcategory.getsubcategory);
-app.get("/getonesubcategory",subcategory.getonesubcategory);
-app.put("/updatesubcategory/:id",subcategory.updatesubcategory);
-app.delete("/deletesubcategory/:id",subcategory.deletesubcategory);
+app.post("/createsubcategory", subcategory.createsubcategory);
+app.get("/getsubcategory", subcategory.getsubcategory);
+app.get("/getonesubcategory", subcategory.getonesubcategory);
+app.put("/updatesubcategory/:id", subcategory.updatesubcategory);
+app.delete("/deletesubcategory/:id", subcategory.deletesubcategory);
 
 //color API
-app.post("/createcolor",color.createcolor);
+app.post("/createcolor", color.createcolor);
 app.get('/color/:id', color.getOneColor);
 app.get('/getcolor/', color.getcolor);
 app.put('/updatecolor/:id', color.updatecolor);
@@ -85,7 +86,7 @@ app.delete("/deletecolor/:id", color.deletecolor);
 
 
 // Size API
-app.post("/createsize",size.createsize);
+app.post("/createsize", size.createsize);
 app.get('/size/:id', size.getOneSize);
 app.get('/getsize', size.getsize);
 app.put('/updatesize/:id', size.updatesize);
@@ -106,5 +107,11 @@ app.get('/getallreviews', review.getallreviews);
 app.put('/updatereview/:id', review.reviewupdate);
 app.delete("/deletereview/:id", review.deletereview);
 
+//Address API
+app.post("/createaddress", address.createaddress);
+app.get('/searchaddress/:id', address.searchaddress);
 
-app.listen(3000);
+PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on ${PORT} And`);
+});
