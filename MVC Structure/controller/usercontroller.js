@@ -68,7 +68,7 @@ const userget = async (req, res) => {
 
     const data = await user.find();
     console.log(data);
-    res.status(202).send(data);
+    res.status(202).send({ message: 'User Fetched successfully', data });
 }
 
 const userupdate = async (req, res) => {
@@ -82,13 +82,13 @@ const userupdate = async (req, res) => {
         }
     );
     console.log(data);
-    res.status(202).send(data);
+    res.status(202).send({ message: 'User Updated successfully', data });
 }
 
 const userdelete = async (req, res) => {
     const data = await user.deleteOne({ _id: req.params.id });
     console.log(data);
-    res.status(202).send(data);
+    res.status(202).send({ message: 'User Deletd successfully', data });
 };
 
 module.exports = {

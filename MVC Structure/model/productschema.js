@@ -41,7 +41,7 @@ const productSchema = new mongoose.Schema({
     },
     User_id:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'users'
+        ref:'user'
     },
     Color_id:{
         type:mongoose.Schema.Types.ObjectId,

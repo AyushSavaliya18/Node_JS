@@ -7,7 +7,7 @@ const addressSchema = new mongoose.Schema({
     },
     User_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users'
+        ref: 'user'
     },
     city:{
         type:String,

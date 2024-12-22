@@ -110,6 +110,12 @@ app.delete("/deletereview/:id", review.deletereview);
 //Address API
 app.post("/createaddress", address.createaddress);
 app.get('/searchaddress/:id', address.searchaddress);
+app.get('/getaddress', address.getaddress);
+app.put('/updateaddress/:id', address.updateaddress);
+
+
+
+
 
 PORT = 3000;
 app.listen(PORT, () => {

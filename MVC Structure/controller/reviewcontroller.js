@@ -11,7 +11,7 @@ const createreview = async (req, res) => {
     }
     const data = await reviewmodel.create(reviewdata)
     console.log(data);
-    res.send(data);
+    res.status(201).send({ message: 'Review Created successfully', data });
   }
 
   const searchreview = async (req, res) => {
@@ -35,7 +35,7 @@ const createreview = async (req, res) => {
   const getallreviews = async (req, res) => {
     const data = await reviewmodel.find().populate('User_id').populate('Product_id');
     console.log(data);
-    res.status(202).send(data);
+    res.status(202).send({ message: 'Review Fetched successfully', data });
   };
   const reviewupdate = async (req, res) => {
     const data = await reviewmodel.updateOne({ _id: req.params.id }, {
@@ -44,13 +44,13 @@ const createreview = async (req, res) => {
       "Product_id": req.body.Product_id
     })
     console.log(data);
-    res.send(data);
+    res.status(200).send({ message: 'Review Updated successfully', data });
   }
 
   const deletereview = async (req, res) => {
     const data = await reviewmodel.deleteOne({ _id: req.params.id });
     console.log(data);
-    res.send(data)
+    res.status(200).send({ message: 'Review Deleted successfully', data })
   }
   
 module.exports ={createreview,searchreview,getallreviews,reviewupdate,deletereview}

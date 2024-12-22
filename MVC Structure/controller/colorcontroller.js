@@ -11,7 +11,8 @@ const createcolor = async (req, res) => {
         }
         const data = await colormodel.create(createColor);
         console.log(data);
-        res.status(201).send(data);
+        res.status(201).send({ message: 'Color Created successfully', data });
+
     } catch (error) {
         console.error(error);
         res.status(400).send('Error creating color');
@@ -28,7 +29,7 @@ const getOneColor = async (req, res) => {
             return res.status(404).send({ message: 'Color not found' });
         }
 
-        res.status(200).send(data);
+        res.status(200).send({ message: 'Color Fetched successfully', data });
         console.log(data);
     } catch (error) {
         console.error("Error finding color:", error);
@@ -40,7 +41,7 @@ const getcolor = async (req, res) => {
     try {
         const data = await colormodel.find();
         console.log("Fetched Color Codes: ", data);
-        res.status(200).send(data);
+        res.status(200).send({ message: 'Color Fetched successfully', data });
     } catch (error) {
         console.error("Error fetching Color: ", error);
         res.status(500).send({ message: "An error occurred while fetching Colors." });

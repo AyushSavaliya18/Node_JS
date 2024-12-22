@@ -11,7 +11,7 @@ const createsubcategory = async (req, res) => {
 
         const data = await subcategoryData.save()
         console.log("Created Subcategory: ", data);
-        res.status(201).send(data);
+        res.status(201).send({ message: 'Subcategory Created successfully', data });
     } catch (error) {
         console.error("Error creating subcategory: ", error);
         res.status(500).send({ message: "An error occurred while creating the subcategory." });

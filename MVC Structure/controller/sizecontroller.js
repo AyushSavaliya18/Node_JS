@@ -9,7 +9,7 @@ const createsize = async (req, res) => {
 
         console.log(data);
 
-        res.status(201).send(data);
+        res.status(201).send({ message: 'Size Created successfully', data });
     } catch (error) {
 
         console.error('Error creating size:', error);

@@ -29,7 +29,7 @@ const createproduct = async (req, res) => {
 
     const data = await productmodel.create(productData);
     console.log(data);
-    res.status(201).send(data);
+    res.status(201).send({ message: 'Product Created successfully', data });
 
   } catch (error) {
 
@@ -67,7 +67,7 @@ const searchproduct = async (req, res) => {
   const productget = async (req, res) => {
     const data = await productmodel.find().populate('Sub_c_id');
     console.log(data);
-    res.send(data);
+    res.status(200).send({ message: 'Product Fetched successfully', data });
   }
 
   const productupdate = async (req, res) => {
@@ -86,13 +86,13 @@ const searchproduct = async (req, res) => {
       "Size_id": req.body.Size_id
     })
     console.log(data);
-    res.status(202).send(data);
+    res.status(202).send({ message: 'Product Updated successfully', data });
   };
 
   const productdelete = async (req, res) => {
     const data = await productmodel.deleteOne({ _id: req.params.id });
     console.log(data);
-    res.status(202).send(data);
+    res.status(202).send({ message: 'Product Deleted successfully', data });
   };
 module.exports = {
     createproduct,searchproduct,productget,productupdate,productdelete
