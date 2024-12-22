@@ -52,8 +52,5 @@ const updateaddress = async (req, res) => {
 
         res.status(200).send({ message: 'Address updated successfully', data });
         console.log(data); 
-
 };
-
-
 module.exports = { createaddress, searchaddress, getaddress, updateaddress };
