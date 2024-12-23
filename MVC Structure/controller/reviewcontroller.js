@@ -15,23 +15,23 @@ const createreview = async (req, res) => {
   }
 
   const searchreview = async (req, res) => {
-    const { id } = req.params;
-  
     try {
-      // Search for the review by its MongoDB _id
-      const data = await reviewmodel.findById(id);
+        const Review_id = req.body.id; 
   
-      if (!data) {
-        return res.status(404).json({ message: 'Review not found' });
-      }
+        const data = await reviewmodel.findById(Review_id).populate('User_id').populate('Product_id'); 
   
-      console.log(data); 
-      res.status(200).send(data); 
+        if (!data) {
+            return res.status(404).send({ message: 'Review not found' });
+        }
+  
+        res.status(200).send({message:"Review Found Successfully",data});
+        console.log(data);
     } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Error fetching review', error: error.message });
+        console.error("Error finding Review:", error);
+        res.status(500).send({ message: "An error occurred while finding Review." });
     }
   };
+
   const getallreviews = async (req, res) => {
     const data = await reviewmodel.find().populate('User_id').populate('Product_id');
     console.log(data);

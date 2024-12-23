@@ -21,17 +21,21 @@ const createaddress = async (req, res) => {
 };
 
 const searchaddress = async (req, res) => {
+    try {
+        const Address_id = req.body.id; 
 
-    const { addressId } = req.params;
+        const data = await addressmodel.findById(Address_id).populate('User_id'); 
 
-    const data = await addressmodel.findById(addressId);
+        if (!data) {
+            return res.status(404).send({ message: 'Address not found' });
+        }
 
-    if (!data) {
-        return res.status(404).json({ message: 'Address not found' });
+        res.status(200).send({message:"Address Found Successfully",data});
+        console.log(data);
+    } catch (error) {
+        console.error("Error finding Address:", error);
+        res.status(500).send({ message: "An error occurred while finding subcategory." });
     }
-
-    res.status(200).send({ message: 'Address Fetched successfully', data });
-
 };
 
 const getaddress = async (req, res) => {
@@ -53,4 +57,19 @@ const updateaddress = async (req, res) => {
         res.status(200).send({ message: 'Address updated successfully', data });
         console.log(data); 
 };
-module.exports = { createaddress, searchaddress, getaddress, updateaddress };
+const deleteaddress = async (req, res) => {
+    try {
+        const data = await addressmodel.deleteOne({ _id: req.params.id });
+
+        if (data.deletedCount === 0) {
+            return res.status(404).send({ message: "Address not found." });
+        }
+
+        console.log("Deleted Address: ", data);
+        res.status(200).send({ message: "Address deleted successfully.",data });
+    } catch (error) {
+        console.error("Error deleting Address: ", error);
+        res.status(500).send({ message: "An error occurred while deleting the Address." });
+    }
+};
+module.exports = { createaddress, searchaddress, getaddress, updateaddress, deleteaddress };

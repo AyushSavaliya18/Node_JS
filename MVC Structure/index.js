@@ -87,7 +87,7 @@ app.delete("/deletecolor/:id", color.deletecolor);
 
 // Size API
 app.post("/createsize", size.createsize);
-app.get('/size/:id', size.getOneSize);
+app.get('/searchsize', size.getOneSize);
 app.get('/getsize', size.getsize);
 app.put('/updatesize/:id', size.updatesize);
 app.delete("/deletesize/:id", size.deletesize);
@@ -102,20 +102,17 @@ app.delete("/deleteproduct/:id", product.productdelete);
 
 //Review API
 app.post("/createreview", review.createreview);
-app.get('/searchreview/:id', review.searchreview);
+app.get('/searchreview', review.searchreview);
 app.get('/getallreviews', review.getallreviews);
 app.put('/updatereview/:id', review.reviewupdate);
 app.delete("/deletereview/:id", review.deletereview);
 
 //Address API
 app.post("/createaddress", address.createaddress);
-app.get('/searchaddress/:id', address.searchaddress);
+app.get('/searchaddress', address.searchaddress);
 app.get('/getaddress', address.getaddress);
 app.put('/updateaddress/:id', address.updateaddress);
-
-
-
-
+app.delete("/deleteaddress/:id", address.deleteaddress);
 
 PORT = 3000;
 app.listen(PORT, () => {

@@ -19,21 +19,21 @@ const createsize = async (req, res) => {
 
 const getOneSize = async (req, res) => {
     try {
-        const { id } = req.params;
-
-        const data = await sizemodel.findOne({ _id: id });
-
+        const Size_id = req.body.id; 
+  
+        const data = await sizemodel.findById(Size_id); 
+  
         if (!data) {
             return res.status(404).send({ message: 'Size not found' });
         }
-
-        res.status(200).send(data);
+  
+        res.status(200).send({message:"Size Found Successfully",data});
         console.log(data);
     } catch (error) {
-        console.error("Error finding color:", error);
-        res.status(500).send({ message: "An error occurred while finding color." });
+        console.error("Error finding Size:", error);
+        res.status(500).send({ message: "An error occurred while finding Size." });
     }
-};
+  };
 
 const getsize = async (req, res) => {
     try {
