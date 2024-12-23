@@ -45,7 +45,7 @@ const createproduct = async (req, res) => {
   }
 }
 
-const searchproduct = async (req, res) => {
+const findproduct = async (req, res) => {
   try {
       const Product_id = req.body.id; 
 
@@ -93,5 +93,5 @@ const searchproduct = async (req, res) => {
     res.status(202).send({ message: 'Product Deleted successfully', data });
   };
 module.exports = {
-    createproduct,searchproduct,productget,productupdate,productdelete
+    createproduct,findproduct,productget,productupdate,productdelete
 }
