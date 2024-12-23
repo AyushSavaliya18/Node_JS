@@ -14,7 +14,7 @@ app.use(bodyParser.json())
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "./images/images"), function (error) {
+    cb(null, path.join(__dirname, "./public/images"), function (error) {
       if (error) {
         throw error;
       }
@@ -33,6 +33,8 @@ const upload = multer({ storage: storage })
 
 const db = require("./database/db")
 
+//Controllers
+const admin = require("./controller/admincontroller")
 const user = require("./controller/usercontroller")
 const category = require("./controller/categorycontroller")
 const subcategory = require("./controller/subcategorycontroller")
@@ -43,6 +45,7 @@ const mail = require("./controller/mail")
 const FPass = require("./controller/FPass")
 const review = require("./controller/reviewcontroller")
 const address = require("./controller/addresscontroller")
+
 
 //user functions
 const { verifytoken } = require("./middleware/userAuth");
@@ -113,6 +116,14 @@ app.get('/searchaddress', address.searchaddress);
 app.get('/getaddress', address.getaddress);
 app.put('/updateaddress/:id', address.updateaddress);
 app.delete("/deleteaddress/:id", address.deleteaddress);
+
+//Admin API
+app.post("/createadmin", admin.createadmin);
+app.post("/adminlogin", admin.adminlogin);
+app.get("/searchadmin/:id", admin.searchadmin);
+app.get("/getadmin", admin.getadmin);
+app.put("/updateadmin/:id", admin.updateadmin);
+app.delete("/deleteadmin/:id", admin.admindeleted);
 
 PORT = 3000;
 app.listen(PORT, () => {
