@@ -2,7 +2,6 @@ const productmodel = require("../model/productschema");
 
 const createproduct = async (req, res) => {
 
-
   try {
     const { Product_id, Product_name, Price, Deposite, Qty, Description, Sub_c_id, Cat_id, User_id, Color_id, Size_id } = req.body;
 
@@ -47,51 +46,72 @@ const createproduct = async (req, res) => {
 
 const findproduct = async (req, res) => {
   try {
-      const Product_id = req.body.id; 
+    const Product_id = req.body.id;
 
-      const data = await productmodel.findById(Product_id).populate('Sub_c_id'); 
+    const data = await productmodel.findById(Product_id).populate('Sub_c_id');
 
-      if (!data) {
-          return res.status(404).send({ message: 'Product not found' });
-      }
+    if (!data) {
+      return res.status(404).send({ message: 'Product not found' });
+    }
 
-      res.status(200).send({message:"Product Found Successfully",data});
-      console.log(data);
+    res.status(200).send({ message: "Product Found Successfully", data });
+    console.log(data);
   } catch (error) {
-      console.error("Error finding Product:", error);
-      res.status(500).send({ message: "An error occurred while finding Product." });
+    console.error("Error finding Product:", error);
+    res.status(500).send({ message: "An error occurred while finding Product." });
   }
 };
-  const productget = async (req, res) => {
-    const data = await productmodel.find().populate('Sub_c_id');
-    console.log(data);
-    res.status(200).send({ message: 'Product Fetched successfully', data });
+const productget = async (req, res) => {
+  const data = await productmodel.find().populate('Sub_c_id');
+  console.log(data);
+  res.status(200).send({ message: 'Product Fetched successfully', data });
+}
+
+const productupdate = async (req, res) => {
+  const data = await productmodel.updateOne({ _id: req.params.id }, {
+    "Product_id": req.body.Product_id,
+    "Product_name": req.body.Product_name,
+    "Price": req.body.Price,
+    "Deposite": req.body.Deposite,
+    "Qty": req.body.Qty,
+    "Description": req.body.Description,
+    "image": req.body.imageArray,
+    "Sub_c_id": req.body.Sub_c_id,
+    "Cat_id": req.body.Cat_id,
+    "User_id": req.body.User_id,
+    "Color_id": req.body.Color_id,
+    "Size_id": req.body.Size_id
+  })
+  console.log(data);
+  res.status(202).send({ message: 'Product Updated successfully', data });
+};
+
+const productdelete = async (req, res) => {
+  const data = await productmodel.deleteOne({ _id: req.params.id });
+  console.log(data);
+  res.status(202).send({ message: 'Product Deleted successfully', data });
+};
+
+const searchProduct = async (req, res) => {
+
+  try {
+    const search = req.body.search;
+    console.log("Search term:", search);
+
+    const searchdata = await productmodel.find({
+      Product_name: { $regex: ".*" + search + ".*", $options: "i" } // Case-insensitive search
+    });
+
+    if (searchdata.length > 0) {
+      console.log("Search results:", searchdata);
+     return res.status(200).send({ message: "Product Found Successfully", searchdata });
+    }
+    return res.status(404).send({ message: "Product not found" });
+  } catch (error) {
+    return res.status(500).send({ message: "An error occurred while finding Product." });
   }
+};
 
-  const productupdate = async (req, res) => {
-    const data = await productmodel.updateOne({ _id: req.params.id }, {
-      "Product_id": req.body.Product_id,
-      "Product_name": req.body.Product_name,
-      "Price": req.body.Price,
-      "Deposite": req.body.Deposite,
-      "Qty": req.body.Qty,
-      "Description": req.body.Description,
-      "image": req.body.imageArray,
-      "Sub_c_id": req.body.Sub_c_id,
-      "Cat_id": req.body.Cat_id,
-      "User_id": req.body.User_id,
-      "Color_id": req.body.Color_id,
-      "Size_id": req.body.Size_id
-    })
-    console.log(data);
-    res.status(202).send({ message: 'Product Updated successfully', data });
-  };
-
-  const productdelete = async (req, res) => {
-    const data = await productmodel.deleteOne({ _id: req.params.id });
-    console.log(data);
-    res.status(202).send({ message: 'Product Deleted successfully', data });
-  };
 module.exports = {
-    createproduct,findproduct,productget,productupdate,productdelete
+  createproduct, findproduct, productget, productupdate, productdelete, searchProduct
 }

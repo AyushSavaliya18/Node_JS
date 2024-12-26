@@ -103,6 +103,8 @@ app.get('/getproduct', product.productget);
 app.put('/updateproduct/:id', product.productupdate);
 app.delete("/deleteproduct/:id", product.productdelete);
 
+app.get("/Search", product.searchProduct);
+
 //Review API
 app.post("/createreview", review.createreview);
 app.get('/searchreview', review.searchreview);
