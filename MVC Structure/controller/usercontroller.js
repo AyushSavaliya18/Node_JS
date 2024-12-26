@@ -37,21 +37,19 @@ const usercreate = async (req, res) => {
 const userlogin = async (req, res) => {
 
     try {
-        const { email, password } = req.body;
+        const { email, password } = req.body;//step 1:Take email,password from body
         console.log("!!!!", req.body.password);
-        const login = await user.findOne({ email: email })
+        const login = await user.findOne({ email: email })//Step 2: Find email by Entered email
         console.log("Data :", login);
 
-        if (!login) {
-            res.status(401).res.send({
-                message: "email is not valid"
-            });
+        if (!login) {//Step 3:if its not matched give error
+            res.status(401).res.send({message: "email is not valid"});
         }
 
-        const userpassword = await bcrypt.compare(password, login.password);
+        const userpassword = await bcrypt.compare(password, login.password);//step 4: compare entered password 
         console.log("User Password:", userpassword);
 
-        if (userpassword) {
+        if (userpassword) {//step 5: if its same crete token of Authorization
             const token = jwt.sign({ email: login.email, password: login.password }, privatekey, { expiresIn: '1h' });
 
             res.status(202).send({ message: "User Login Sucessfully !!!", login, token: token })
@@ -62,6 +60,11 @@ const userlogin = async (req, res) => {
     } catch (error) {
         res.status(401).send(error);
     }
+   //step 1:Take email,password from body   const { email, password } = req.body;
+    //Step 2: Find email by Entered email  const login = await user.findOne({ email: email })
+    //Step 3:if its not matched give error  IF (!login) { res.status(401).res.send({message: "email is not valid"});
+    //step 4: compare entered password  userpassword = await bcrypt.compare(password, login.password);
+    //step 5: if its same crete token of Authorization in IF token = jwt.sign({ email: login.email}, privatekey,  {expiresIn: '1h'});
 }
 
 const userget = async (req, res) => {
