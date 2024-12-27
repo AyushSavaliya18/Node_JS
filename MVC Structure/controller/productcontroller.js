@@ -113,5 +113,5 @@ const searchProduct = async (req, res) => {
 };
 
 module.exports = {
-  createproduct, findproduct, productget, productupdate, productdelete, searchProduct
+  createproduct, findproduct, productget, searchProduct,productupdate, productdelete 
 }
