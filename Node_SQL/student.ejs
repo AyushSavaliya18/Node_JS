@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Login</title>
+</head>
+
+<body>
+    <h1>Student Lists</h1>
+    <table border="1" width="100%">
+        <tr>
+            <th>S.no</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Actions</th>
+        </tr>
+
+        <% if (student.length> 0) { %>
+            <% for (var i=0; i < student.length; i++) { %>
+                <tr>
+                    <td><%- student[i].id %></td>
+                    <td><%- student[i].email %></td>
+                    <td><%- student[i].password %></td>
+                    <td>
+                        <a href="/delete-Student?id=<%- student[i].id %>">Delete</a>
+                        <a href="/update-student?id=<%- student[i].id %>">Update</a>
+                    </td>
+                </tr>
+                <% } %>
+                    <% } else { %>
+                        <h1>Login Data Not Found!</h1>
+
+                        <% } %>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Student Login</title>
+</head>
+
+<body>
+
+    <form action="/search">
+        <input type="search" name="email" placeholder="Search Email">
+        <input type="search" name="password" placeholder="Search Password">
+        <input type="submit" value="Search">
+    </form>
+
+    <h1>Student Lists</h1>
+    <table border="1" width="100%">
+
+        <tr>
+            <!-- <th>S.no</th> -->
+            <th>Email</th>
+            <th>Password</th>
+            <!-- <th>Actions</th> -->
+        </tr>
+
+        <% if(student.length> 0){ %>
+
+            <% for(var i=0; i < student.length ; i++){ %>
+
+                <tr>
+                    <!-- <td><%- student[i].id %></td> -->
+                    <td><%- student[i].email %></td>
+                    <td><%- student[i].password %></td>
+                    <!-- <td>
+                        <a href="/delete-Student?id=<%- student[i].id %>">Delete</a>
+                        <a href="/update-student?id=<%- student[i].id %>">Update</a>
+                    </td> -->
+
+                </tr>
+
+                <% } %>
+
+                    <% }else{ %>
+
+                        <tr>
+                            <td>Data Not Found</td>
+                        </tr>
+
+                        <% } %>
+
+    </table>
+</body>
+
+</html>

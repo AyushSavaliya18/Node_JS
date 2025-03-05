@@ -43,7 +43,7 @@ const userlogin = async (req, res) => {
         console.log("Data :", login);
 
         if (!login) {//Step 3:if its not matched give error
-            res.status(401).res.send({message: "email is not valid"});
+            res.status(401).send({message: "email is not valid"});
         }
 
         const userpassword = await bcrypt.compare(password, login.password);//step 4: compare entered password 
@@ -64,7 +64,7 @@ const userlogin = async (req, res) => {
     //Step 2: Find email by Entered email  const login = await user.findOne({ email: email })
     //Step 3:if its not matched give error  IF (!login) { res.status(401).res.send({message: "email is not valid"});
     //step 4: compare entered password  userpassword = await bcrypt.compare(password, login.password);
-    //step 5: if its same crete token of Authorization in IF token = jwt.sign({ email: login.email}, privatekey,  {expiresIn: '1h'});
+    //step 5: if its same create token of Authorization in IF token = jwt.sign({ email: login.email}, privatekey,  {expiresIn: '1h'});
 }
 
 const userget = async (req, res) => {
